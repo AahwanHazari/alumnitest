@@ -1828,3 +1828,50 @@ footer {
     }
 
 }
+/* ==============================
+   ALWAYS-VISIBLE BACK TO HOME
+   ============================== */
+
+.back-home-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+
+    padding: 10px 16px;
+
+    background: rgba(255, 255, 255, 0.92);
+    color: #173b70;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.back-home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+    background: #ffffff;
+}
+
+.back-home-btn:active {
+    transform: translateY(0);
+}
+
+/* Hide it while the user is already on Home */
+.back-home-btn.hidden {
+    display: none;
+}

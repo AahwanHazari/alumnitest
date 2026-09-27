@@ -43,6 +43,10 @@ function showPage(pageId, clickedButton) {
     }
 
 
+    // Update Back to Home button
+    updateBackHomeButton(pageId);
+
+
     // Go to top
     window.scrollTo({
         top: 0,
@@ -58,33 +62,75 @@ function showPage(pageId, clickedButton) {
 
 function showPageById(pageId) {
 
-    const buttons =
-        document.querySelectorAll(".nav-btn");
-
+    const buttons = document.querySelectorAll(".nav-btn");
 
     const pageOrder = {
 
         home: 0,
-
         alumni: 1,
-
         events: 2,
-
         gallery: 3,
-
         profile: 4
 
     };
 
 
-    const buttonIndex =
-        pageOrder[pageId];
+    const buttonIndex = pageOrder[pageId];
 
 
     showPage(
         pageId,
         buttons[buttonIndex]
     );
+}
+
+
+
+/* =========================================================
+   BACK TO HOME BUTTON
+   ========================================================= */
+
+function goHome() {
+
+    // Find the Home navigation button
+    const homeButton = document.querySelector(
+        '.nav-btn[onclick*="home"]'
+    );
+
+
+    // Show Home page
+    showPage("home", homeButton);
+}
+
+
+
+/* Show/hide the back-to-home button */
+
+function updateBackHomeButton(pageId) {
+
+    const backHomeButton =
+        document.getElementById("backHomeBtn");
+
+
+    if (!backHomeButton) {
+        return;
+    }
+
+
+    // Hide button on Home
+    if (pageId === "home") {
+
+        backHomeButton.classList.add("hidden");
+
+    }
+
+    // Show button everywhere else
+    else {
+
+        backHomeButton.classList.remove("hidden");
+
+    }
+
 }
 
 
@@ -99,7 +145,9 @@ function toggleMenu() {
         document.getElementById("navbar");
 
 
-    navbar.classList.toggle("open");
+    if (navbar) {
+        navbar.classList.toggle("open");
+    }
 
 }
 
@@ -155,7 +203,9 @@ function searchAlumni() {
 
             card.style.display = "flex";
 
-        } else {
+        }
+
+        else {
 
             card.style.display = "none";
 
@@ -179,11 +229,18 @@ window.addEventListener(
     "scroll",
     function() {
 
+        if (!topButton) {
+            return;
+        }
+
+
         if (window.scrollY > 350) {
 
             topButton.classList.add("show");
 
-        } else {
+        }
+
+        else {
 
             topButton.classList.remove("show");
 
@@ -246,12 +303,17 @@ function submitRegistration(event) {
 
 
 /* =========================================================
-   INITIAL PAGE ANIMATION
+   INITIAL PAGE SETUP + ANIMATION
    ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
+
+        // Home is the starting page,
+        // so hide the Back to Home button
+        updateBackHomeButton("home");
+
 
         const cards =
             document.querySelectorAll(
